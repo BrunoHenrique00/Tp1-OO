@@ -209,7 +209,6 @@ public class Main {
 
                     palavraAdivinhada += "_";
                     boolean acertou = false;
-                    System.out.println("Entrei aq");
 
                     while(tentativas < MAX_ERROS && !acertou){
                         System.out.println("Escolha uma letra: ");
