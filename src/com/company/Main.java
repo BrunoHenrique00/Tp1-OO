@@ -194,6 +194,7 @@ public class Main {
                     System.out.println("Não existem palavras neste tema");
                     return;
                 } else {
+
                     int valor = 0;
                     String theme = "";
                     do {
@@ -205,43 +206,48 @@ public class Main {
                     String palavraAdivinhada = "";
                     int MAX_ERROS = 5;
                     int tentativas = 0;
-                    System.out.println("Palavra: " + theme);
 
-                    for (int i = 0; i < theme.length(); i++) {
-                        palavraAdivinhada += "_";
+                    palavraAdivinhada += "_";
+                    boolean acertou = false;
+                    System.out.println("Entrei aq");
 
-                        while(tentativas < MAX_ERROS){
-                            System.out.println("Escolha uma letra: ");
-                            char letraTentada = scanner.next().charAt(0);
+                    while(tentativas < MAX_ERROS && !acertou){
+                        System.out.println("Escolha uma letra: ");
+                        char letraTentada = scanner.next().charAt(0);
 
-                            if(letrasUsadas.indexOf(letraTentada) >= 0){
-                                System.out.println("Tente outra letra!");
-                            } else {
-                                letrasUsadas += letraTentada;
+                        if(letrasUsadas.indexOf(letraTentada) >= 0){
+                            System.out.println("Tente outra letra!");
+                        } else {
+                            letrasUsadas += letraTentada;
 
-                                if(theme.indexOf(letraTentada) >= 0){
-                                    palavraAdivinhada = "";
+                            if(theme.indexOf(letraTentada) >= 0){
+                                palavraAdivinhada = "";
 
-                                    for (int j = 0; j < theme.length(); j++) {
-                                        palavraAdivinhada = letrasUsadas.indexOf(theme.charAt(j)) >= 0 ? String.valueOf(theme.charAt(j)) : "_";
-                                    }
-
-                                    if(palavraAdivinhada.contains("_")){
-                                        System.out.println("Letra correta");
-                                    } else {
-                                        System.out.println("Parabéns! Você acertou a palavra! Deseja jogar novamente?");
-                                        System.out.println("Se sim, aperte 1. Caso não queria aperte qualquer outro número");
-                                        playMore = scanner.nextInt();
-                                        if(playMore != 1) return;
-                                        tentativas = MAX_ERROS;
-                                    }
-                                } else {
-                                    tentativas++;
-                                    System.out.println("Você errou, tentativas: " + tentativas);
+                                for (int j = 0; j < theme.length(); j++) {
+                                    palavraAdivinhada = letrasUsadas.indexOf(theme.charAt(j)) >= 0 ? String.valueOf(theme.charAt(j)) : "_";
                                 }
+
+                                if(palavraAdivinhada.contains("_")){
+                                    System.out.println("Letra correta");
+                                } else {
+                                    System.out.println("Parabéns! Você acertou a palavra! Deseja jogar novamente?");
+                                    System.out.println("Se sim, aperte 1. Caso não queira aperte qualquer outro número");
+                                    playMore = scanner.nextInt();
+                                    if(playMore != 1) return;
+                                    acertou = true;
+                                }
+                            } else {
+                                tentativas++;
+                                System.out.println("Você errou, tentativas: " + tentativas);
                             }
                         }
-
+                    }
+                    if(!acertou){
+                        System.out.println("Você perdeu! Deseja jogar novamente?");
+                        System.out.println("Se sim, aperte 1. Caso não queria aperte qualquer outro número");
+                        playMore = scanner.nextInt();
+                        if(playMore != 1) return;
+                        tentativas = MAX_ERROS;
                     }
                 }
             }
